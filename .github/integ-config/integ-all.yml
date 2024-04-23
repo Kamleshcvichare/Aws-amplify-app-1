@@ -438,6 +438,7 @@ tests:
     category: api
     sample_name: [rest]
     spec: restful
+    backend: cli
     browser: *minimal_browser_list
     - test_name: integ_react_rest_api
     desc: 'GEN2 Vite + React REST API'

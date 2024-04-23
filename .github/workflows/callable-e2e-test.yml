@@ -22,6 +22,9 @@ on:
       browser:
         required: true
         type: string
+      backend:
+        required: false
+        type: string
       amplifyjs_dir:
         required: true
         type: boolean

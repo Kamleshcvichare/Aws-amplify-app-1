@@ -5,7 +5,8 @@ import {
 	DownloadTask,
 	StorageDownloadDataOutput,
 	StorageGetUrlOutput,
-	StorageItem,
+	StorageItemWithKey,
+	StorageItemWithPath,
 	StorageListOutput,
 	UploadTask,
 } from '../../../types';
@@ -25,52 +26,119 @@ export interface ItemBase {
 }
 
 /**
+ * @deprecated Use {@link ListOutputItemWithPath} instead.
+ * type for S3 list item with key.
+ */
+export type ListOutputItemWithKey = Omit<ItemWithKey, 'metadata'>;
+
+/**
+ * type for S3 list item with path.
+ */
+export type ListOutputItemWithPath = Omit<ItemWithPath, 'metadata'>;
+
+/**
+ * @deprecated Use {@link ItemWithPath} instead.
+ */
+export type ItemWithKey = ItemBase & StorageItemWithKey;
+
+/**
+ * type for S3 list item with path.
+ */
+export type ItemWithPath = ItemBase & StorageItemWithPath;
+
+/**
  * type for S3 list item.
  */
-export type ListOutputItem = Omit<ItemWithKeyAndPath, 'metadata'>;
-
-export type ItemWithKeyAndPath = ItemBase & StorageItem;
+export type ListOutputItem = Omit<ItemWithKey, 'metadata'>;
 
 /**
  * Output type for S3 downloadData API.
+ * @deprecated Use {@link DownloadDataOutputWithPath} instead.
  */
 export type DownloadDataOutput = DownloadTask<
-	StorageDownloadDataOutput<ItemWithKeyAndPath>
+	StorageDownloadDataOutput<ItemWithKey>
+>;
+/**
+ * Output type with path for S3 downloadData API.
+ */
+export type DownloadDataWithPathOutput = DownloadTask<
+	StorageDownloadDataOutput<ItemWithPath>
 >;
 
 /**
- * Output type for S3 uploadData API.
- */
-export type UploadDataOutput = UploadTask<ItemWithKeyAndPath>;
-
-/**
  * Output type for S3 getUrl API.
+ * @deprecated Use {@link GetUrlWithPathOutput} instead.
  */
 export type GetUrlOutput = StorageGetUrlOutput;
+/**
+ *  Output type with path for S3 getUrl API.
+ * */
+export type GetUrlWithPathOutput = StorageGetUrlOutput;
+
+/**
+ * Output type for S3 uploadData API.
+ *  @deprecated Use {@link UploadDataOutputWithPath} instead.
+ */
+export type UploadDataOutput = UploadTask<ItemWithKey>;
+/**
+ *  Output type with path for S3 uploadData API.
+ * */
+export type UploadDataWithPathOutput = UploadTask<ItemWithPath>;
 
 /**
  * Output type for S3 getProperties API.
- */
-export type GetPropertiesOutput = ItemWithKeyAndPath;
+ * @deprecated Use {@link GetPropertiesOutputWithPath} instead.
+ * */
+export type GetPropertiesOutput = ItemBase & StorageItemWithKey;
+/**
+ *  Output type with path for S3 getProperties API.
+ * */
+export type GetPropertiesWithPathOutput = ItemBase & StorageItemWithPath;
 
 /**
- * Output type for S3 Copy API.
- */
-export type CopyOutput = Pick<ItemWithKeyAndPath, 'key' | 'path'>;
-
-/**
- * Output type for S3 remove API.
- */
-export type RemoveOutput = Pick<ItemWithKeyAndPath, 'key' | 'path'>;
-
-/**
+ * @deprecated Use {@link ListAllOutputWithPath} instead.
  * Output type for S3 list API. Lists all bucket objects.
  */
-export type ListAllOutput = StorageListOutput<ListOutputItem>;
+export type ListAllOutput = StorageListOutput<ListOutputItemWithKey>;
 
 /**
+ * Output type with path for S3 list API. Lists all bucket objects.
+ */
+export type ListAllWithPathOutput = StorageListOutput<ListOutputItemWithPath>;
+
+/**
+ * @deprecated Use {@link ListPaginateOutputWithPath} instead.
  * Output type for S3 list API. Lists bucket objects with pagination.
  */
-export type ListPaginateOutput = StorageListOutput<ListOutputItem> & {
+export type ListPaginateOutput = StorageListOutput<ListOutputItemWithKey> & {
 	nextToken?: string;
 };
+
+/**
+ * Output type with path for S3 list API. Lists bucket objects with pagination.
+ */
+export type ListPaginateWithPathOutput =
+	StorageListOutput<ListOutputItemWithPath> & {
+		nextToken?: string;
+	};
+
+/**
+ *  Output type with path for S3 copy API.
+ * @deprecated Use {@link CopyOutputWithPath} instead.
+ */
+export type CopyOutput = Pick<ItemWithKey, 'key'>;
+/**
+ * Output type with path for S3 copy API.
+ */
+export type CopyWithPathOutput = Pick<ItemWithPath, 'path'>;
+
+/**
+ * @deprecated Use {@link RemoveOutputWithPath} instead.
+ * Output type with key for S3 remove API.
+ */
+export type RemoveOutput = Pick<ItemWithKey, 'key'>;
+
+/**
+ * Output type with path for S3 remove API.
+ */
+export type RemoveWithPathOutput = Pick<ItemWithPath, 'path'>;
